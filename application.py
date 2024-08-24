@@ -7,6 +7,10 @@ import pandas as pd
 import folium
 from dotenv import load_dotenv
 import re
+from io import BytesIO
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
+import urllib.parse
 
 genai.configure(api_key=os.getenv('GEMINI_API_KEY'))
 load_dotenv()
@@ -94,12 +98,34 @@ def checkRateLimit():
             stm.stop()
 
 
-def downloadFile(filename, content):
+def generatePDF(content):
+    """
+    Generate a PDF file from the itinerary content.
+    """
+    buffer = BytesIO()
+    c = canvas.Canvas(buffer, pagesize=letter)
+    width, height = letter
+
+    # Draw the content
+    c.drawString(72, height - 72, "Travel Itinerary")
+    text_object = c.beginText(72, height - 100)
+    text_object.setFont("Helvetica", 12)
+    for line in content.split('\n'):
+        text_object.textLine(line)
+    c.drawText(text_object)
+    c.showPage()
+    c.save()
+    buffer.seek(0)
+    return buffer
+
+
+def downloadPDF(filename, content):
+    buffer = generatePDF(content)
     return stm.download_button(
-        label="Download Itinerary",
-        data=content,
+        label="Download Itinerary as PDF",
+        data=buffer,
         file_name=filename,
-        mime="text/plain"
+        mime="application/pdf"
     )
 
 
@@ -138,7 +164,7 @@ def extractCoordinates(itinerary):
     for match in matches:
         lat, lon = map(float, match)
         coords.append((lat, lon))
-    print(f"Coordinates are: {coords}")
+    # print(f"Coordinates are: {coords}")
     return coords
 
 
@@ -148,6 +174,21 @@ def formatItinerary(itinerary):
     """
     return itinerary.replace("**", "").replace("##", "").replace(":", "\n")
 
+
+def shareByEmail(itinerary):
+    """
+    Create a mailto link for sharing the itinerary via email.
+    """
+    subject = "Check out my travel itinerary!"
+    body = f"Here is my travel itinerary:\n\n{itinerary}"
+    mailto_link = f"mailto:?subject={urllib.parse.quote(subject)}&body={urllib.parse.quote(body)}"
+
+    stm.markdown(
+        f"""
+        <a href="{mailto_link}" target="_blank">Share via Email</a>
+        """,
+        unsafe_allow_html=True
+    )
 
 stm.title("Travel Made Easy")
 stm.markdown('Get a custom travel plan made just for you!')
@@ -160,7 +201,7 @@ budget = stm.text_input("Enter your budget (e.g. 1000, 5000, etc.)")
 with open("loadingMessages.txt", "r") as f:
     loadingMessages = f.readlines()
 
-if stm.button("Generate Itinerary"):
+if stm.button("Recommend"):
     placeholder = stm.empty()
     loadingMessage = random.choice(loadingMessages)
 
@@ -170,7 +211,7 @@ if stm.button("Generate Itinerary"):
     placeholder.text("")
     stm.success(itinerary)
 
-    downloadFile("itinerary.txt", itinerary)
+    downloadPDF("itinerary.pdf", itinerary)
 
     coordinates = extractCoordinates(itinerary)
     if coordinates:
@@ -184,3 +225,5 @@ if stm.button("Generate Itinerary"):
             file_name=map_filename,
             mime="text/html"
         )
+
+    shareByEmail(itinerary)
