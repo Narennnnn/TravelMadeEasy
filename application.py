@@ -8,7 +8,6 @@ import folium
 from dotenv import load_dotenv
 import re
 
-# Configure API keys and environment variables
 genai.configure(api_key=os.getenv('GEMINI_API_KEY'))
 load_dotenv()
 
@@ -133,7 +132,7 @@ def extractCoordinates(itinerary):
     Extract city center coordinates from the itinerary text.
     """
     coords = []
-    # Use regex to find coordinates in the format of lat, lon
+    # regex to find coordinates in the format of lat, lon
     pattern = re.compile(r"(\d+\.\d+)°\s*[NS],\s*(\d+\.\d+)°\s*[EW]")
     matches = pattern.findall(itinerary)
     for match in matches:
@@ -151,9 +150,10 @@ def formatItinerary(itinerary):
 
 
 stm.title("Travel Made Easy")
-stm.markdown('Get a personalized itinerary crafted just for your journey.')
+stm.markdown('Get a custom travel plan made just for you!')
 destinationName = stm.text_input("Enter your destination")
-typeOfTrip = stm.text_input("Enter the type of trip (e.g. Hiking, Solo, Religious, etc.) (optional)")
+typeOfTrip = stm.text_input(
+    "Enter the type of trip (e.g. Hiking, Solo, Religious, Road, Adventure, Family Vacation, Group Travel etc.)")
 lengthOfStay = stm.slider("Enter the length of your stay (days)", 1, 10)
 budget = stm.text_input("Enter your budget (e.g. 1000, 5000, etc.)")
 
