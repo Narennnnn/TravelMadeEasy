@@ -8,8 +8,8 @@ Get a custom travel plan made just for you!
 ## Features
 
 - **Custom Itinerary Generation:** Generate travel itineraries based on user preferences such as budget, destination, and travel duration.
-- **Interactive Map:** Display destinations on a map with coordinates extracted from the generated itinerary.
-- **Shareable Itineraries:** Easily share generated itineraries on social media or download them as PDFs.
+- **Interactive Map:** Display destinations on a map with coordinates extracted from the generated itinerary and download map to access offline.
+- **Shareable Itineraries:** Easily share generated itineraries via Email or download them as PDFs.
 - **Caching and Rate Limiting:** Utilizes Redis for efficient caching and rate limiting.
 - **Dockerized Deployment:** The application is containerized using Docker. Easily build and run the app using Docker, ensuring that all dependencies and configurations are packaged together.
 
