@@ -73,6 +73,6 @@ docker run -p 8501:8501 gotravel
 - **Contribute:** If you have improvements or fixes, consider creating a pull request to contribute back to the original repository.
 
 
-### Suggestions are appreciated! You can connect with me on [Linkedin](https://www.linkedin.com/feed/)
+### Suggestions are appreciated! You can connect with me on [Linkedin](https://www.linkedin.com/in/narendra-maurya-01/)
 
 ## Happy Coding :)
