@@ -27,7 +27,7 @@
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/TravelMadeEasy.git
+git clone https://github.com/Narennnnn/TravelMadeEasy.git
 cd TravelMadeEasy
 ```
 
@@ -66,7 +66,7 @@ docker run -p 8501:8501 gotravel
 
 ## Forking and Sharing
 
-- **Fork the Repository:** Click the "Fork" button at the top right of the [TravelMadeEasy GitHub repository](https://github.com/yourusername/TravelMadeEasy) page to create your own copy of the repository.
+- **Fork the Repository:** Click the "Fork" button at the top right of the [TravelMadeEasy GitHub repository](https://github.com/Narennnnn/TravelMadeEasy) page to create your own copy of the repository.
 
 - **Share Your Fork:** After forking, you can make changes and share your version by providing others with the URL of your forked repository.
 
