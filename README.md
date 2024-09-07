@@ -1,4 +1,10 @@
-# [TravelMadeEasy](https://travelmadeeasy.streamlit.app/)
+# TravelMadeEasy
+## Live Links
+
+
+- **Streamlit App:** [TravelMadeEasy](https://travelmadeeasy.streamlit.app/)
+  - *If the Streamlit application is not accessible, please use the EC2 deployment link below.*
+- **EC2 Deployment:** [TravelMadeEasy](http://3.25.226.16:8501/)
 <img width="1440" alt="Screenshot 2024-08-24 at 6 47 18 PM" src="https://github.com/user-attachments/assets/f06e82b3-f14c-4ee2-9a59-04b8ecc2d74b">
 
 ![image](https://github.com/user-attachments/assets/f4bc9951-cc8f-48f0-a832-005139878f81)
