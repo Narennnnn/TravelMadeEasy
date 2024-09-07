@@ -100,18 +100,30 @@ def checkRateLimit():
 
 def generatePDF(content):
     """
-    Generate a PDF file from the itinerary content.
+    Generate a PDF file from the itinerary content with proper pagination.
     """
     buffer = BytesIO()
     c = canvas.Canvas(buffer, pagesize=letter)
     width, height = letter
+    margin = 72  # margin from the edge of the page
+    max_width = width - 2 * margin
+    max_height = height - 2 * margin
 
-    # Draw the content
-    c.drawString(72, height - 72, "Travel Itinerary")
-    text_object = c.beginText(72, height - 100)
+    # Draw the title
+    c.drawString(margin, height - margin, "Travel Itinerary")
+    text_object = c.beginText(margin, height - margin - 20)
     text_object.setFont("Helvetica", 12)
-    for line in content.split('\n'):
+    lines = content.split('\n')
+    y_position = height - margin - 40
+
+    for line in lines:
         text_object.textLine(line)
+        if text_object.getY() < margin:
+            c.drawText(text_object)
+            c.showPage()
+            text_object = c.beginText(margin, height - margin - 20)
+            text_object.setFont("Helvetica", 12)
+
     c.drawText(text_object)
     c.showPage()
     c.save()
